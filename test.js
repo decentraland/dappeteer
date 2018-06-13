@@ -11,7 +11,7 @@ async function main() {
   )
 
   // switch to Ropsten
-  await metamask.switchNetwork('ropsten')
+  await metamask.switchNetwork('localhost')
 
   // open decentraland marketplace settings
   const marketplace = await browser.newPage()

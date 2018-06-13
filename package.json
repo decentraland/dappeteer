@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "ganache": "ganache-cli --mnemonic 'already turtle birth enroll since owner keep patch skirt drift any dinner' --deterministic --unlock 0x7e4ABd63A7C8314Cc28D388303472353D884f292",
     "test": "node test"
   },
   "keywords": [],
   "author": "Juan Cazala <juan@decentraland.org>",
   "license": "ISC",
   "devDependencies": {
-    "puppeteer": "^1.5.0"
+    "puppeteer": "^1.5.0",
+    "ganache-cli": "^6.1.2"
   }
 }
