@@ -36,7 +36,7 @@ export async function launch(puppeteer, options: LaunchOptions = {}): Promise<pu
   const { args, ...rest } = options
 
   const { metamaskVersion, metamaskPath } = options
-  const METAMASK_VERSION = metamaskVersion || '7.7.1'
+  const METAMASK_VERSION = metamaskVersion || '8.1.11'
   console['log'](path.join(__dirname, `metamask/${METAMASK_VERSION}`))
   const METAMASK_PATH = metamaskPath || path.resolve(__dirname, '..', 'metamask', METAMASK_VERSION)
 
@@ -300,7 +300,7 @@ async function importAccount(metamaskPage: puppeteer.Page, seed: string, passwor
   const metricsOptOut = await metamaskPage.waitFor('.metametrics-opt-in button.btn-primary')
   await metricsOptOut.click()
 
-  const seedPhraseInput = await metamaskPage.waitFor('.first-time-flow textarea')
+  const seedPhraseInput = await metamaskPage.waitFor('.first-time-flow__seedphrase input')
   await seedPhraseInput.type(seed)
 
   const passwordInput = await metamaskPage.waitFor('#password')
@@ -309,14 +309,17 @@ async function importAccount(metamaskPage: puppeteer.Page, seed: string, passwor
   const passwordConfirmInput = await metamaskPage.waitFor('#confirm-password')
   await passwordConfirmInput.type(password)
 
-  const acceptTerms = await metamaskPage.waitFor('div[role=checkbox]')
+  const acceptTerms = await metamaskPage.waitFor('.first-time-flow__terms')
   await acceptTerms.click()
 
-  const restoreButton = await metamaskPage.waitFor('.first-time-flow button')
+  const restoreButton = await metamaskPage.waitFor('.first-time-flow__button')
   await restoreButton.click()
 
   const doneButton = await metamaskPage.waitFor('.end-of-flow button')
   await doneButton.click()
+
+  const closeSwappingButton = await metamaskPage.waitFor('.popover-header__button')
+  await closeSwappingButton.click()
 }
 
 async function waitForUnlockedScreen(metamaskPage) {
