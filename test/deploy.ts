@@ -1,4 +1,4 @@
-declare var ethereum: any
+declare let ethereum: any
 
 const ganache = require('ganache-core')
 
