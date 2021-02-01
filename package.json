@@ -11,7 +11,7 @@
   "scripts": {
     "postinstall": "npx rimraf node_modules/**/**/.git",
     "build": "tsc",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "test": "mocha -r ts-node/register test/test.ts --timeout=200000 --exit"
   },
   "repository": {
@@ -29,11 +29,11 @@
   "author": "Juan Cazala <juan@decentraland.org>",
   "license": "MIT",
   "devDependencies": {
-    "@types/mocha": "^5.2.7",
+    "@types/mocha": "^7.0.2",
     "@types/puppeteer": "^2.1.5",
-    "dcl-tslint-config-standard": "^1.1.0",
+    "dcl-tslint-config-standard": "^2.0.0",
     "ganache-core": "^2.13.2",
-    "mocha": "5.2.0",
+    "mocha": "7.2.0",
     "puppeteer": "^2.1.1",
     "rocketh": "https://github.com/wighawag/rocketh.git#3bcfdb3b7d38ac98449b3d5075e12868b32d5a0c",
     "serve-handler": "5.0.8",
