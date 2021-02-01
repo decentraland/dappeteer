@@ -1,6 +1,6 @@
 {
   "name": "dappeteer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "E2E testing for dApps using Puppeteer + MetaMask",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -30,19 +30,19 @@
   "license": "MIT",
   "devDependencies": {
     "@types/mocha": "^5.2.7",
-    "@types/puppeteer": "^1.12.4",
+    "@types/puppeteer": "^2.1.5",
     "dcl-tslint-config-standard": "^1.1.0",
-    "ganache-core": "^2.5.5",
+    "ganache-core": "^2.13.2",
     "mocha": "5.2.0",
-    "puppeteer": "^1.20.0",
+    "puppeteer": "^2.1.1",
     "rocketh": "https://github.com/wighawag/rocketh.git#3bcfdb3b7d38ac98449b3d5075e12868b32d5a0c",
     "serve-handler": "5.0.8",
     "solc": "0.5.2",
-    "ts-node": "^8.2.0",
-    "typescript": "^3.5.1",
-    "web3": "1.0.0-beta.34"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7",
+    "web3": "1.2.6"
   },
   "peerDependencies": {
-    "puppeteer": "^1.16.0"
+    "puppeteer": "^2.1.1"
   }
 }
