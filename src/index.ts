@@ -244,10 +244,16 @@ export async function getMetamask(
       await metamaskPage.bringToFront()
 
       const confirmButtonSelector =
-        'button.button.btn-primary.btn--large.page-container__footer-button'
+        '.permissions-connect-choose-account__bottom-buttons button.button.btn-primary'
 
-      const button = await metamaskPage.waitFor(confirmButtonSelector)
-      await button.click()
+        const button = await metamaskPage.waitFor(confirmButtonSelector)
+        await button.click()
+        
+        const permissionApprovalSelector = 
+          '.permission-approval-container__footers button.button.btn-primary'
+
+          const permissionApprovalButton = await metamaskPage.waitFor(permissionApprovalSelector)
+          await permissionApprovalButton.click()
 
       await waitForUnlockedScreen(metamaskPage)
     }
