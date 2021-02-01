@@ -320,6 +320,11 @@ async function importAccount(metamaskPage: puppeteer.Page, seed: string, passwor
 
   const closeSwappingButton = await metamaskPage.waitFor('.popover-header__button')
   await closeSwappingButton.click()
+
+  // Ensure popover is closed before continue
+  await metamaskPage.waitFor(() => {
+    return document.querySelector('.popover-header__button') == null
+  })
 }
 
 async function waitForUnlockedScreen(metamaskPage) {
