@@ -174,7 +174,7 @@ export async function getMetamask(
 
       await metamaskPage.reload()
 
-      if (options.gas) {
+      if (options?.gas) {
         const gasSelector = '.advanced-gas-inputs__gas-edit-row:nth-child(1) input'
         const gas = await metamaskPage.waitFor(gasSelector)
 
@@ -187,7 +187,7 @@ export async function getMetamask(
         await gas.type(options.gas.toString())
       }
 
-      if (options.gasLimit) {
+      if (options?.gasLimit) {
         const gasLimitSelector = '.advanced-gas-inputs__gas-edit-row:nth-child(2) input'
         const gasLimit = await metamaskPage.waitFor(gasLimitSelector)
 
