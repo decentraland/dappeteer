@@ -36,7 +36,7 @@ export async function launch(puppeteer, options: LaunchOptions = {}): Promise<pu
   const { args, ...rest } = options
 
   const { metamaskVersion, metamaskPath } = options
-  const METAMASK_VERSION = metamaskVersion || '8.1.11'
+  const METAMASK_VERSION = metamaskVersion || '9.0.4'
   console['log'](path.join(__dirname, `metamask/${METAMASK_VERSION}`))
   const METAMASK_PATH = metamaskPath || path.resolve(__dirname, '..', 'metamask', METAMASK_VERSION)
 
