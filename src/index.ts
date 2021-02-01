@@ -224,6 +224,10 @@ export async function getMetamask(
 
     approve: async () => {
       await metamaskPage.bringToFront()
+      if (!signedIn) {
+        throw new Error("You haven't signed in yet")
+      }
+      await metamaskPage.reload()
 
       const confirmButtonSelector =
         '.permissions-connect-choose-account__bottom-buttons button.button.btn-primary'
