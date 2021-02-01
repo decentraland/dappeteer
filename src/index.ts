@@ -1,5 +1,5 @@
 import * as path from 'path'
-import * as puppeteer from 'Puppeteer'
+import * as puppeteer from 'puppeteer'
 
 const timeout = seconds => new Promise(resolve => setTimeout(resolve, seconds * 1000))
 
@@ -77,7 +77,7 @@ export async function getMetamask(
       await metamaskPage.bringToFront()
       const accountSwitcher = await metamaskPage.waitFor('.identicon')
       await accountSwitcher.click()
-      const signoutButton = await metamaskPage.waitFor('.account-menu__logout-button')
+      const signoutButton = await metamaskPage.waitFor('.account-menu__lock-button')
       await signoutButton.click()
       await waitForSignInScreen(metamaskPage)
       signedIn = false
@@ -332,7 +332,7 @@ async function waitForUnlockedScreen(metamaskPage) {
 }
 
 async function waitForSignInScreen(metamaskPage) {
-  await metamaskPage.waitForSelector('#metamask-mascot-container')
+  await metamaskPage.waitForSelector('.unlock-page')
 }
 
 async function waitForEthereum(metamaskPage) {
