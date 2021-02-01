@@ -172,54 +172,36 @@ export async function getMetamask(
         throw new Error("You haven't signed in yet")
       }
 
-      await metamaskPage.waitFor('.transaction-list__pending-transactions .transaction-list-item .transaction-status--unapproved')
       await metamaskPage.reload()
 
-      if (options) {
-        const editButtonSelector = 'div.confirm-detail-row__header-text--edit'
-        const editButton = await metamaskPage.waitFor(editButtonSelector)
-        await editButton.click()
+      if (options.gas) {
+        const gasSelector = '.advanced-gas-inputs__gas-edit-row:nth-child(1) input'
+        const gas = await metamaskPage.waitFor(gasSelector)
 
-        const tabSelector = 'li.page-container__tab:nth-child(2)'
-        const tab = await metamaskPage.waitFor(tabSelector)
-        await tab.click()
-
-        if (options.gas) {
-          const gasSelector = '.advanced-gas-inputs__gas-edit-row:nth-child(1) input'
-          const gas = await metamaskPage.waitFor(gasSelector)
-
-          await metamaskPage.evaluate(
-            () =>
-              ((document.querySelectorAll(
-                '.advanced-gas-inputs__gas-edit-row:nth-child(1) input'
-              )[0] as HTMLInputElement).value = '')
-          )
-          await gas.type(options.gas.toString())
-        }
-
-        if (options.gasLimit) {
-          const gasLimitSelector = '.advanced-gas-inputs__gas-edit-row:nth-child(2) input'
-          const gasLimit = await metamaskPage.waitFor(gasLimitSelector)
-
-          await metamaskPage.evaluate(
-            () =>
-              ((document.querySelectorAll(
-                '.advanced-gas-inputs__gas-edit-row:nth-child(2) input'
-              )[0] as HTMLInputElement).value = '')
-          )
-          await gasLimit.type(options.gasLimit.toString())
-        }
-
-        const saveSelector =
-          '#app-content > div > span > div.modal > div > div > div > div.page-container__bottom > div.page-container__footer > header > button'
-        const saveButton = await metamaskPage.waitFor(saveSelector)
-        await saveButton.click()
-
-        //Wait for modal to disappear
-        await metamaskPage.waitFor(() => !document.querySelector('div.modal'));
+        await metamaskPage.evaluate(
+          () =>
+            ((document.querySelectorAll(
+              '.advanced-gas-inputs__gas-edit-row:nth-child(1) input'
+            )[0] as HTMLInputElement).value = '')
+        )
+        await gas.type(options.gas.toString())
       }
+
+      if (options.gasLimit) {
+        const gasLimitSelector = '.advanced-gas-inputs__gas-edit-row:nth-child(2) input'
+        const gasLimit = await metamaskPage.waitFor(gasLimitSelector)
+
+        await metamaskPage.evaluate(
+          () =>
+            ((document.querySelectorAll(
+              '.advanced-gas-inputs__gas-edit-row:nth-child(2) input'
+            )[0] as HTMLInputElement).value = '')
+        )
+        await gasLimit.type(options.gasLimit.toString())
+      }
+
       const confirmButtonSelector =
-        '#app-content > div > div.main-container-wrapper > div > div.page-container__footer > header > button.button.btn-primary.btn--large.page-container__footer-button'
+        '#app-content > div > div.main-container-wrapper > div > div > div.page-container__footer > footer > button.button.btn-primary.page-container__footer-button'
       const confirmButton = await metamaskPage.waitFor(confirmButtonSelector)
       await confirmButton.click()
       await waitForUnlockedScreen(metamaskPage)
