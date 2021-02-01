@@ -38,7 +38,7 @@
     "rocketh": "https://github.com/wighawag/rocketh.git#3bcfdb3b7d38ac98449b3d5075e12868b32d5a0c",
     "serve-handler": "~6.1.3",
     "solc": "0.5.17",
-    "ts-node": "^8.10.2",
+    "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
     "web3": "1.3.3"
   },
