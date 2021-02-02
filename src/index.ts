@@ -214,7 +214,7 @@ export async function getMetamask(
       }
       await metamaskPage.reload()
 
-      const confirmButtonSelector = '.request-signature__footer button.btn-secondary'
+      const confirmButtonSelector = '.signature-request-footer button.button.btn-primary'
 
       const button = await metamaskPage.waitForSelector(confirmButtonSelector)
       await button.click()
