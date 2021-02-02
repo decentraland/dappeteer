@@ -24,12 +24,16 @@ export type Dappeteer = {
   switchNetwork: (network: string) => Promise<void>
   confirmTransaction: (options: TransactionOptions) => Promise<void>
   sign: () => Promise<void>
-  approve: () => Promise<void>
+  approve: (options: ApproveOptions) => Promise<void>
 }
 
 export type TransactionOptions = {
   gas: number
   gasLimit: number
+}
+
+export type ApproveOptions = {
+  allAccounts?: boolean
 }
 
 export async function launch(puppeteer, options: LaunchOptions = {}): Promise<puppeteer.Browser> {
@@ -222,12 +226,21 @@ export async function getMetamask(
       await waitForUnlockedScreen(metamaskPage)
     },
 
-    approve: async () => {
+    approve: async ({ allAccounts = false }) => {
       await metamaskPage.bringToFront()
       if (!signedIn) {
         throw new Error("You haven't signed in yet")
       }
       await metamaskPage.reload()
+
+      if (allAccounts) {
+        // If we want to approve all accounts imported to be used with our Dapp
+        const selectAllCheckboxSelector =
+          '.permissions-connect-choose-account__select-all input'
+          
+        const allAccountsCheckbox = await metamaskPage.waitForSelector(selectAllCheckboxSelector)
+        await allAccountsCheckbox.click()
+      }
 
       const confirmButtonSelector =
         '.permissions-connect-choose-account__bottom-buttons button.button.btn-primary'
