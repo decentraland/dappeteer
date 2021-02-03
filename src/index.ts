@@ -233,13 +233,25 @@ export async function getMetamask(
       }
       await metamaskPage.reload()
 
+      // If we want to approve all imported accounts to be used with our Dapp and avoid
+      // difficulties connecting while switching accounts
       if (allAccounts) {
-        // If we want to approve all accounts imported to be used with our Dapp
-        const selectAllCheckboxSelector =
-          '.permissions-connect-choose-account__select-all input'
-          
-        const allAccountsCheckbox = await metamaskPage.waitForSelector(selectAllCheckboxSelector)
-        await allAccountsCheckbox.click()
+        const accountListElementsSelector =
+          '.permissions-connect-choose-account__account'
+        
+        // We wait until the list is loaded and we check that it has more than 1 element
+        await metamaskPage.waitForSelector(accountListElementsSelector)
+        const accountListElements = await metamaskPage.$$(accountListElementsSelector)
+
+        // Try to click input only if there is more than one account. It won't be present with one
+        // account or less
+        if (accountListElements.length > 1) {
+          const selectAllCheckboxSelector =
+            '.permissions-connect-choose-account__select-all input'
+            
+          const allAccountsCheckbox = await metamaskPage.waitForSelector(selectAllCheckboxSelector)
+          await allAccountsCheckbox.click()
+        }        
       }
 
       const confirmButtonSelector =

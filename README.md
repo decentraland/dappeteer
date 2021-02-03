@@ -68,4 +68,4 @@ main()
 
   - `metamask.sign()`: commands MetaMask to sign a message. For this to work MetaMask must be in a sign confirmation state.
   
-  - `metamask.approve()`: enables the app to connect to MetaMask account in privacy mode
+  - `metamask.approve({ allAccounts })`: confirm Dapp permissions to use Metamask account. If you plan to use the Dapp with multiple accounts you can use `allAccounts` to add permission to all imported accounts. By default is false
