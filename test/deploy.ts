@@ -1,4 +1,4 @@
-declare var ethereum: any
+declare let ethereum: any
 
 const ganache = require('ganache-core')
 
@@ -26,7 +26,7 @@ async function waitForGanache() {
   await new Promise(res => {
     server.listen(8545, () => {
       console.log('Ganache running at http://localhost:8545')
-      res()
+      res(undefined)
     })
   })
 }
@@ -65,7 +65,7 @@ async function startTestServer() {
   await new Promise(res => {
     server.listen(8080, () => {
       console.log('Server running at http://localhost:8080')
-      res()
+      res(undefined)
     })
   })
 }

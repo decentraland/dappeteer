@@ -103,6 +103,10 @@ describe('dappeteer', () => {
 
       // submit tx
       await metamask.confirmTransaction()
+
+      // wait half a seconds just in case
+      await pause(0.5)
+
       await testPage.waitForSelector("#txSent");
     })
 
@@ -129,6 +133,10 @@ describe('dappeteer', () => {
       gas: 20,
       gasLimit: 400000
     })
+    
+    // wait half a seconds just in case
+    await pause(0.5)
+    
     await testPage.waitForSelector("#txSent");
   })
 
