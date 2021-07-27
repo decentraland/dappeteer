@@ -18,7 +18,7 @@ export type MetamaskOptions = {
 export type Dappeteer = {
   lock: () => Promise<void>
   unlock: (password: string) => Promise<void>
-  addNetwork: (url: string) => Promise<void>
+  addNetwork: (name: string, chainID:string, url: string) => Promise<void>
   importPK: (pk: string) => Promise<void>
   switchAccount: (accountNumber: number) => Promise<void>
   switchNetwork: (network: string) => Promise<void>
@@ -100,7 +100,7 @@ export async function getMetamask(
       signedIn = true
     },
 
-    addNetwork: async url => {
+    addNetwork: async (name, chainID, url) => {
       await metamaskPage.bringToFront()
       const networkSwitcher = await metamaskPage.waitForSelector('.network-indicator')
       await networkSwitcher.click()
@@ -117,9 +117,13 @@ export async function getMetamask(
       }, 'Custom RPC')
       const networkButton = (await metamaskPage.$$('li.dropdown-menu-item'))[networkIndex]
       await networkButton.click()
-      const newRPCInput = await metamaskPage.waitForSelector('input#new-rpc')
-      await newRPCInput.type(url)
-      const saveButton = await metamaskPage.waitForSelector('button.settings-tab__rpc-save-button')
+      const newRPCName = await metamaskPage.waitForSelector('input#network-name')
+      await newRPCName.type(name)
+      const newRPCChainID = await metamaskPage.waitForSelector('input#chainId')
+      await newRPCChainID.type(chainID)
+      const newRPCUrl = await metamaskPage.waitForSelector('input#rpc-url')
+      await newRPCUrl.type(url)
+      const saveButton = await metamaskPage.waitForSelector('.network-form__footer .button.btn-secondary')
       await saveButton.click()
       const prevButton = await metamaskPage.waitForSelector('img.app-header__metafox-logo')
       await prevButton.click()

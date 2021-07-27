@@ -62,7 +62,7 @@ main()
 
   - `metamask.switchNetwork(networkName)`: it changes the current selected network. `networkName` can take the following values: `"main"`, `"ropsten"`, `"rinkeby"`, `"kovan"`, `"localhost"`.
 
-  - `metamask.addNetwork(url)`: it adds a custom network to MetaMask.
+  - `metamask.addNetwork(name, chainID, url)`: it adds a custom network to MetaMask and switch to it.
 
   - `metamask.confirmTransaction([{ gas, gasLimit }])`: commands MetaMask to submit a transaction. For this to work MetaMask has to be in a transaction confirmation state (basically promting the user to submit/reject a transaction). You can (optionally) pass an object with `gas` and/or `gasLimit`, by default they are `20` and `50000` respectively.
 
