@@ -35,7 +35,7 @@ before(async () => {
     password: 'password1234'
   })
   testPage = await browser.newPage()
-  await testPage.goto('localhost:8080')
+  await testPage.goto('http://localhost:8080')
 })
 
 describe('dappeteer', () => {
@@ -76,10 +76,8 @@ describe('dappeteer', () => {
 
   it("should connect to ethereum", async () => {
     await clickElement(testPage, ".connect-button");
-    await metamask.approve();
+    await metamask.approve({ allAccounts: false});
 
-    // For some reason initial approve does not resolve nor fail promise
-    await clickElement(testPage, ".connect-button");
     await testPage.waitForSelector("#connected");
   });
 

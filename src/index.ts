@@ -4,6 +4,7 @@ import * as puppeteer from 'puppeteer'
 const timeout = seconds => new Promise(resolve => setTimeout(resolve, seconds * 1000))
 
 export type LaunchOptions = puppeteer.LaunchOptions & {
+  args?: []
   metamaskVersion?: string
   metamaskPath?: string
 }
@@ -23,6 +24,7 @@ export type Dappeteer = {
   switchAccount: (accountNumber: number) => Promise<void>
   switchNetwork: (network: string) => Promise<void>
   confirmTransaction: (options: TransactionOptions) => Promise<void>
+  signTransaction: () => Promise<void>
   sign: () => Promise<void>
   approve: (options: ApproveOptions) => Promise<void>
 }
@@ -215,6 +217,21 @@ export async function getMetamask(
       await waitForUnlockedScreen(metamaskPage)
     },
 
+    signTransaction: async () => {
+      await metamaskPage.bringToFront()
+      if (!signedIn) {
+        throw new Error("You haven't signed in yet")
+      }
+      await metamaskPage.reload()
+
+      const confirmButtonSelector = '.signature-request-footer button.btn-primary'
+
+      const button = await metamaskPage.waitForSelector(confirmButtonSelector)
+      await button.click()
+
+      await waitForUnlockedScreen(metamaskPage)
+    },
+
     sign: async () => {
       await metamaskPage.bringToFront()
       if (!signedIn) {
@@ -222,7 +239,7 @@ export async function getMetamask(
       }
       await metamaskPage.reload()
 
-      const confirmButtonSelector = '.signature-request-footer button.button.btn-primary'
+      const confirmButtonSelector = '.request-signature__footer__sign-button'
 
       const button = await metamaskPage.waitForSelector(confirmButtonSelector)
       await button.click()
