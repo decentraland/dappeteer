@@ -1,5 +1,5 @@
 import * as path from 'path'
-import * as puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer'
 
 const timeout = seconds => new Promise(resolve => setTimeout(resolve, seconds * 1000))
 
@@ -42,7 +42,7 @@ export async function launch(puppeteer, options: LaunchOptions = {}): Promise<pu
   const { args, ...rest } = options
 
   const { metamaskVersion, metamaskPath } = options
-  const METAMASK_VERSION = metamaskVersion || '9.0.4'
+  const METAMASK_VERSION = metamaskVersion || '9.8.4'
   console['log'](path.join(__dirname, `metamask/${METAMASK_VERSION}`))
   const METAMASK_PATH = metamaskPath || path.resolve(__dirname, '..', 'metamask', METAMASK_VERSION)
 
@@ -104,7 +104,7 @@ export async function getMetamask(
 
     addNetwork: async (name, chainID, url) => {
       await metamaskPage.bringToFront()
-      const networkSwitcher = await metamaskPage.waitForSelector('.network-indicator')
+      const networkSwitcher = await metamaskPage.waitForSelector('.network-display')
       await networkSwitcher.click()
       await metamaskPage.waitForSelector('li.dropdown-menu-item')
       const networkIndex = await metamaskPage.evaluate(network => {
@@ -158,7 +158,7 @@ export async function getMetamask(
 
     switchNetwork: async (network = 'main') => {
       await metamaskPage.bringToFront()
-      const networkSwitcher = await metamaskPage.waitForSelector('.network-indicator')
+      const networkSwitcher = await metamaskPage.waitForSelector('.network-display')
       await networkSwitcher.click()
       await metamaskPage.waitForSelector('li.dropdown-menu-item')
       const networkIndex = await metamaskPage.evaluate(network => {

@@ -1,3 +1,5 @@
+artifacts
+cache
 *DS_Store
 node_modules
 test/server/data.js
