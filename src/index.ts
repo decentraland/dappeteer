@@ -147,7 +147,7 @@ export async function getMetamask(
 
     switchAccount: async accountNumber => {
       await metamaskPage.bringToFront()
-      const accountSwitcher = await metamaskPage.waitForSelector('.identicon')
+      const accountSwitcher = await metamaskPage.waitForSelector('.account-menu__icon')
       await accountSwitcher.click()
       const account = await metamaskPage.waitForSelector(
         `.account-menu__accounts > div:nth-child(${accountNumber})`
