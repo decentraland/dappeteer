@@ -1,6 +1,13 @@
+# **DEPRECATED** - no longer actively maintained
+You can find active and updated fork at https://github.com/chainsafe/dappeteer
+
+
+---
+
 # dAppeteer
 
 E2E testing for dApps using Puppeteer + MetaMask
+
 
 ## Installation
 
